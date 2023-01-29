@@ -1,0 +1,35 @@
+% Файл P_main.tex  % главный в проекте
+\documentclass[10pt,twoside,openany]{book}
+\usepackage{etoolbox}   % this package introduces operations: \newbool,...
+
+\newbool{For_Internet}
+\booltrue{For_Internet}    % % Цветная книга для Интерента
+%\boolfalse{For_Internet}  % или черно-белая для бумаги
+
+\newbool{FR} %FR= First Run
+%\booltrue{FR}  %  --  make  FR = true
+\boolfalse{FR}  %  --  make  FR = false
+
+\input{P_Preamble}       % загрузить преамбулу
+\includeonly{             % какие главы включаем в книгу
+P_Ch1,        %%%
+P_Ch2,        %%%
+Zadachi_Head  %%%
+}
+\begin{document}         % начало документа
+\tableofcontents         % Оглавление
+
+\ifbool{FR}{\newclipboard{myclipboard}}{}
+                          % какие главы компилируем
+\include{P_Ch1}          %%%
+\include{P_Ch2}          %%%
+
+\closeoutputstream{ZO}  % закрыть поток в файл Zadachi.tex
+\ifbool{FR}{}{\openclipboard{myclipboard}}
+
+\include{Zadachi_Head} % загрузить Файл с задачами с решениями
+%\bibliography{P_Bibs}  % создать список литературы, убираем простоты ради
+
+\end{document}         % конец документа
+\endinput              % конец текста, дальше только комментарии
+%+++++++++++++++++

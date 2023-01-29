@@ -1,0 +1,161 @@
+% Файл P_preamble.tex  % преамбула
+\usepackage[warn]{mathtext} %(до задания inputenc, fontenc, babel)
+% русские буквы в формулах, с предупреждением
+%---- основной язык -- русский
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[english,russian]{babel}   % load Babel setup for English
+                                      % and Russian languages;
+                                      % the latter is the default.
+% Поскольку опция russian стоит последней, основным языком документа будет russian.
+
+%-- форматирование страницы
+\textheight 187mm
+\textwidth 130mm
+\headheight13.6pt
+\special{papersize=170mm,240mm}
+\oddsidemargin -5.4mm
+\evensidemargin -5.4mm
+\topmargin -5.4mm
+
+%--- стиль заполнения таблицы
+\clubpenalty=400
+\widowpenalty=400
+\tolerance=500  %max=10000, default=200 (выбор между разрежением и переполнением).
+\looseness=-1 %(можно удлинять страницу на одну строку)
+\hfuzz=2.5pt % можно вылезти за край строки на 2.5
+
+%--- полезные пакеты
+\usepackage{amssymb,amsmath} % почти стандарт Латеха
+\usepackage{xspace}
+\usepackage{enumerate} % списки
+\usepackage{booktabs}
+\usepackage[dotinlabels]{titletoc}
+
+%-- включение рисунков
+\usepackage{graphicx}  % Пакет для включения рисунков
+%\usepackage[dvips]{color} % есть цветные фотографии!
+\graphicspath{{figs/}} % В этой директории хранятся все рисунки *.eps,
+\usepackage[usenames,dvipsnames]{xcolor,colortbl}
+
+%--- мой цвет для таблиц, и для ссылок на рисунки и формулы
+\definecolor{lightcyan}{rgb}{0.88,1,1} % обычно: ( 0.88, 1, 1)
+\ifbool{For_Internet}{\newcolumntype{g}{>{\columncolor{lightcyan}}c}}%
+{\newcolumntype{g}{>{\columncolor{light-gray}}c}}
+\newcommand*{\red}[1]{\textcolor[rgb]{1.00,0.00,0.00}{#1}}
+\newcommand*{\blue}[1]{\textcolor[rgb]{0.00,0.00,1.00}{#1}}
+
+\ifbool{For_Internet}%
+{\renewcommand{\thetable}{\red{{\it\arabic{chapter}.\arabic{table}\,}\normalfont}}}%
+{\renewcommand{\thetable}{{\it\arabic{chapter}.\arabic{table}\,}\normalfont}}
+
+\ifbool{For_Internet}%
+{\renewcommand{\thefigure}{{\blue{\bfseries{\arabic{chapter}.\arabic{figure}}\normalfont}}}}%
+{\renewcommand{\thefigure}{{\bfseries{\arabic{chapter}.\arabic{figure}}\normalfont}}}
+
+% Чтобы окрасить названия глав в оглавлении
+ \ifbool{For_Internet}{
+ \titlecontents{chapter}[1.8em] % distance to page margin
+   {\vspace{3mm} \bfseries\color{blue}} % \sffamily
+   {\contentslabel[\thecontentslabel. ]{1.5em}} % distance between 1. and Title of chapter
+   {\hspace*{-2.3em}}{\color{blue}
+   {\titlerule*[1pc]{}\contentspage}\color{blue}}[\vspace{0.5mm}]
+ }{}
+
+\definecolor{light-gray}{gray}{0.95}
+\ifbool{For_Internet}{\newcommand*{\CR}{\rowcolor{lightcyan}}}%
+{\newcommand*{\CR}{\rowcolor{light-gray}}}
+
+%---- оформление ссылок в виде \label{fig:name} \fref{fig:name}
+\usepackage[vario]{fancyref} % plain is also possible
+
+\renewcommand*{\fancyrefdefaultspacing}{\fancyreftightspacing}
+
+\frefformat{vario}{\fancyreffiglabelprefix}{\bfseries{#1}\normalfont }
+\frefformat{vario}{\fancyreftablabelprefix}{\textit{#1}\normalfont}
+\frefformat{vario}{\fancyrefenumlabelprefix}{\textrm{#1}\normalfont}
+% Если это убрать, то пакет fancyref начинает вставлять много отсебятины.
+
+%--- мои макросы
+\newcommand*{\mb}[1]{\mbox{\boldmath$#1$}}  % жирный мат. курсив
+
+\newcommand*{\BE}{\begin{equation}}        %
+\newcommand*{\EN}{\end{equation}}          %
+
+\newcommand*{\BEA}{\begin{subequations} \begin{eqnarray}} %
+\newcommand*{\ENA}{\end{eqnarray} \end{subequations}}   %
+
+\newcommand*{\hs}{\hspace*{\parindent}}    %
+\newcommand*{\nn}{\nonumber}        %
+
+\newcommand*{\1}{$_1$}
+\newcommand*{\2}{$_2$}
+\newcommand*{\3}{$_3$}
+\newcommand*{\4}{$_4$}
+\newcommand*{\5}{$_5$}
+\newcommand*{\6}{$_6$}
+\newcommand*{\7}{$_7$}
+\newcommand*{\8}{$_8$}
+\newcommand*{\9}{$_9$}
+%
+\newcommand*{\T}[1]{\text{#1}}
+%
+\newcommand*{\vep}[3]{$(#1 \pm #2) \times \! 10 ^{#3} $\xspace} % (v+-e)*10^n
+%
+\newcommand*{\ic}{см$^{-1}$\xspace}                 % inverse centimeters
+
+%----  Переопределение математических символов в русских традициях
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+
+%---- вставить простую таблицу
+\newcommand*{\TableBE}[5]{
+\begin{table}[#1] %\captionabove
+\vspace*{-#5mm}
+\centering \sffamily \caption{\label{tab:#2}#3} \begin{tabular}{#4} \toprule }
+
+\newcommand*{\TableEN}[3]{
+\bottomrule \end{tabular}
+\vspace{-#2mm}  \small \begin{flushleft}  #1 \end{flushleft}
+\vspace{-#3mm}
+\end{table}}
+
+%---- вставить в текст таблицу
+%  начало
+\newcommand*{\WrapTableBE}[6]{
+\renewcommand{\baselinestretch}{0.75}\small\normalsize
+\begin{wraptable}{#1}{#5\textwidth} \sffamily
+\begin{center} \vspace*{-#6mm}
+\caption{\label{tab:#2}#3} \begin{tabular}{#4} \toprule }
+% #1 : l, r   #2 : label   #3 : caption  #4 : cc|cc|rr|ll  #5 : 40mm
+
+% вставить в текст таблицу, окончание
+\newcommand*{\WrapTableEN}[2]{
+\bottomrule \end{tabular} \end{center} \vspace{-#2pt} \small #1  \end{wraptable}
+\renewcommand{\baselinestretch}{1}\small\normalsize}
+
+%---- вставить рисунок внутрь текста
+\usepackage{wrapfig} % нужен для RisEpsRight
+
+\newcommand*{\EpsWrapD}[7]{%
+\begin{wrapfigure}[#5]{#3}{#2 \textwidth} %
+\begin{center} \sffamily
+\includegraphics*[width= #2 \textwidth ]{#1}
+\vspace{-#7mm}
+\caption{\label{fig:#1}#4}
+\vspace{-#6pt}
+\end{center}
+\end{wrapfigure}}
+
+%---- потоки в другие файлы
+\usepackage{clipboard} % It is used to |copy and \HL\Paste the texts with tasks
+\usepackage{newfile}
+\newoutputstream{ZO}
+\openoutputfile{Zadachi.tex}{ZO}
+\newcommand*{\itemZO}[2]{\item  \label{enum:#1}%
+\Copy{#1}{\emph{\ifbool{For_Internet}{\blue{ #2 }}{#2}}}%
+\addtostream{ZO}{$\{$\thechapter.\theenumi $\}$}}
+
+\endinput
