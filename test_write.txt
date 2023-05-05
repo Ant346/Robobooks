@@ -1,0 +1,21 @@
+1. Тест на заголовок \chapter{ 1. Тест }
+вапролвапрол
+2. Тест на  скобки ( какой-то интересный текст)
+3. Тест на полужирный текст \textbf{жирный текст}
+4. Тест на жирный текст \textbf{жирный текст}
+5. Тест на ссылку \href{http://nukanuka.org}{Мегассылка}
+6. Тест на ненумерованный список
+egin{itemize} 
+\item { Я 1} 
+\item { Я 2 } 
+\item { Я 3} 
+\item { Я 4} 
+\end{itemize} 
+7. Тест на код 
+ \begin{lstlisting}[language=Python,caption={Заполни меня}] 
+ print ('Hello World') 
+ \end{lstlisting}
+\end{itemize} 
+8. Тест на italic \textit{italic}
+\end{itemize} 
+9. Тест для картинок \includegraphics[width=9cm]{../.gitbook/assets/nord.png}
